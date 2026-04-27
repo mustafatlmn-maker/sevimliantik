@@ -283,6 +283,10 @@ footer p{font-size:.75rem;color:var(--muted);letter-spacing:.08em}
       <div class="detail-name" id="detailName"></div>
       <div class="detail-price" id="detailPrice"></div>
       <div class="detail-desc" id="detailDesc"></div>
+      <div id="detailAdminBtns" style="display:none;gap:.75rem;margin-bottom:1rem;display:none">
+        <button class="btn btn-dark" onclick="editFromDetail()" style="font-size:.72rem;padding:.6rem 1.4rem">✏️ Düzenle</button>
+        <button class="btn" onclick="deleteFromDetail()" style="font-size:.72rem;padding:.6rem 1.4rem;border-color:#c0392b;color:#c0392b">🗑 Sil</button>
+      </div>
       <a href="#" class="wa-btn" id="detailWa">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         WhatsApp ile Bilgi Al
@@ -296,9 +300,9 @@ footer p{font-size:.75rem;color:var(--muted);letter-spacing:.08em}
   <div class="about-page">
     <h2>Hakkında</h2>
     <div class="divider">✦</div>
-    <p>Yıllardır antika porselen ve değerli eşya koleksiyonculuğu yapıyorum. Bavaria, Limoges, Royal Albert, Vienna ve England porselenleri başta olmak üzere Avrupa'nın en prestijli markalarına ait nadide parçaları bir araya getiriyorum.</p>
-    <p>Her parça titizlikle seçilmekte, özgünlüğü doğrulanmakta ve tarihin izlerini taşıyan bir eser olarak sunulmaktadır. Koleksiyonumu doğru ellere ulaştırmak ve bu geleneği yaşatmak için buradayım.</p>
-    <p>Randevu ile yerinde inceleme yapılabilir. Merak ettiğiniz her konuda bana ulaşabilirsiniz.</p>
+    <p>Yıllar önce hobi olarak başladığımız antika koleksiyonculuğunu artık profesyonel bir zeminde sizlerle buluşturuyoruz. En prestijli markalara ait nadide parçaları bir araya getirip sizlere ulaştırıyoruz.</p>
+    <p>Avrupa ve ülkemizden titizlikle seçtiğimiz ürünlerin özgünlüğü doğrulanmakta ve tarihin izlerini taşıyan bir eser olarak sunulmaktadır. Koleksiyonumuzu doğru ellere ulaştırmak ve bu geleneği yaşatmak için buradayız.</p>
+    <p>Randevu ile yerinde inceleme yapılabilir. Merak ettiğiniz her konuda bize ulaşabilirsiniz.</p>
     <button class="btn" onclick="showPage('iletisim')" style="margin-top:1.5rem">İletişime Geç</button>
   </div>
 </div>
@@ -312,12 +316,16 @@ footer p{font-size:.75rem;color:var(--muted);letter-spacing:.08em}
     <div class="contact-box">
       <div class="phone" id="contactPhone">+90 5XX XXX XX XX</div>
       <div class="label">Telefon & WhatsApp</div>
-      <a href="https://wa.me/905000000000" class="wa-btn" id="contactWa" style="justify-content:center">
+      <a href="https://wa.me/32471429030" class="wa-btn" id="contactWa" style="justify-content:center">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         WhatsApp ile Yazın
       </a>
     </div>
-    <div class="contact-note">Randevu ve yerinde inceleme için lütfen önceden arayınız.<br>Mesaj ve arama ile 7/24 ulaşabilirsiniz.</div>
+    <div class="contact-note">
+      📧 <a href="mailto:mustafatlmn@gmail.com" style="color:var(--gold)">mustafatlmn@gmail.com</a><br><br>
+      🛖 Her Pazar — <strong>Feriköy Antika Pazarı, 2. Sıra</strong><br><br>
+      Randevu ve yerinde inceleme için lütfen önceden arayınız.<br>Mesaj ve arama ile 7/24 ulaşabilirsiniz.
+    </div>
   </div>
 </div>
 
@@ -328,6 +336,7 @@ footer p{font-size:.75rem;color:var(--muted);letter-spacing:.08em}
 
 <!-- ═══════════ ADMIN MODAL ═══════════ -->
 <button class="admin-btn" onclick="openAdmin()">+ Ürün Ekle</button>
+<button class="admin-btn" id="logoutBtn" style="display:none;bottom:3.5rem;background:#7a6f62" onclick="adminLogout()">Çıkış Yap</button>
 
 <div class="modal-overlay" id="adminOverlay">
   <div class="modal">
@@ -403,8 +412,10 @@ let currentPage = 'home';
 let detailFrom = 'koleksiyon';
 let editingId = null;
 
-const PHONE = '+90 5XX XXX XX XX';
-const WA_NUM = '905000000000';
+const PHONE = '+32 471 42 90 30';
+const WA_NUM = '32471429030';
+const ADMIN_PASS = 'Mustafa2025';
+let adminUnlocked = false;
 
 const catLabels = {fincan:'Tek Fincan',tabak:'Duvar Tabağı',servis:'Servis Takımı',vazo:'Vazo & Dekorasyon',obje:'Küçük Obje',aksesuar:'Aksesuar'};
 const pageFilters = {porselen:['fincan','tabak','servis'], dekoratif:['vazo','obje','aksesuar']};
@@ -463,7 +474,10 @@ function filterPage(pageId, cat, btn){
 }
 
 // ── DETAIL ──
+let currentDetailId = null;
+
 function showDetail(id, fromPage){
+  currentDetailId = id;
   const p = products.find(x=>x.id===id);
   if(!p) return;
   detailFrom = fromPage;
@@ -490,6 +504,14 @@ document.getElementById('detailBack').addEventListener('click', ()=>showPage(det
 
 // ── ADMIN ──
 function openAdmin(id){
+  if(!adminUnlocked){
+    const pw = prompt('Yönetici Şifresi:');
+    if(pw !== ADMIN_PASS){
+      if(pw !== null) alert('Hatalı şifre.');
+      return;
+    }
+    adminUnlocked = true;
+  }
   editingId = id||null;
   if(id){
     const p = products.find(x=>x.id===id);
@@ -512,64 +534,51 @@ function openAdmin(id){
   document.getElementById('adminOverlay').classList.add('open');
 }
 
-function closeAdmin(){document.getElementById('adminOverlay').classList.remove('open');}
+function editFromDetail(){
+  openAdmin(currentDetailId);
+}
 
-function previewImg(input){
-  if(!input.files||!input.files[0]) return;
-  const r = new FileReader();
-  r.onload = e=>{
-    const prev = document.getElementById('fImgPreview');
-    prev.src = e.target.result;
-    prev.style.display = 'block';
-  };
-  r.readAsDataURL(input.files[0]);
+function deleteFromDetail(){
+  const p = products.find(x=>x.id===currentDetailId);
+  if(!p) return;
+  if(!confirm('"'+p.name+'" silinsin mi? Bu işlem geri alınamaz.')) return;
+  products = products.filter(x=>x.id!==currentDetailId);
+  localStorage.setItem('antika_products', JSON.stringify(products));
+  alert('Ürün silindi.');
+  showPage(detailFrom);
+  ['koleksiyon','porselen','dekoratif'].forEach(pg=>renderGrid(pg));
+}
+
+function adminLogout(){
+  adminUnlocked = false;
+  document.getElementById('logoutBtn').style.display = 'none';
+}
+
+function closeAdmin(){
+  document.getElementById('adminOverlay').classList.remove('open');
+  document.getElementById('logoutBtn').style.display = adminUnlocked ? 'block' : 'none';
 }
 
 function saveProduct(){
   const name = document.getElementById('fName').value.trim();
   if(!name){alert('Ürün adı zorunludur.');return;}
-
   const pages = Array.from(document.getElementById('fPage').selectedOptions).map(o=>o.value);
   if(!pages.length) pages.push('koleksiyon');
-
   const imgFile = document.getElementById('fImg').files[0];
-
   function doSave(imgData){
     if(editingId){
       const i = products.findIndex(x=>x.id===editingId);
-      products[i] = {...products[i],
-        name, cat:document.getElementById('fCat').value,
-        pages, price:document.getElementById('fPrice').value.trim(),
-        desc:document.getElementById('fDesc').value.trim(),
-        sold:document.getElementById('fSold').value,
-        ...(imgData?{img:imgData}:{})
-      };
+      products[i] = {...products[i], name, cat:document.getElementById('fCat').value, pages, price:document.getElementById('fPrice').value.trim(), desc:document.getElementById('fDesc').value.trim(), sold:document.getElementById('fSold').value, ...(imgData?{img:imgData}:{})};
     } else {
-      products.push({
-        id: Date.now().toString(),
-        name, cat:document.getElementById('fCat').value,
-        pages, price:document.getElementById('fPrice').value.trim(),
-        desc:document.getElementById('fDesc').value.trim(),
-        sold:document.getElementById('fSold').value,
-        img:imgData||''
-      });
+      products.push({id:Date.now().toString(), name, cat:document.getElementById('fCat').value, pages, price:document.getElementById('fPrice').value.trim(), desc:document.getElementById('fDesc').value.trim(), sold:document.getElementById('fSold').value, img:imgData||''});
     }
     localStorage.setItem('antika_products', JSON.stringify(products));
     closeAdmin();
-    ['koleksiyon','porselen','dekoratif'].forEach(pg=>{
-      if(document.getElementById('grid-'+pg)) renderGrid(pg);
-    });
+    ['koleksiyon','porselen','dekoratif'].forEach(pg=>{if(document.getElementById('grid-'+pg)) renderGrid(pg);});
     alert('Ürün kaydedildi!');
   }
-
-  if(imgFile){
-    const r = new FileReader();
-    r.onload = e=>doSave(e.target.result);
-    r.readAsDataURL(imgFile);
-  } else {
-    const existing = editingId ? (products.find(x=>x.id===editingId)||{}).img||'' : '';
-    doSave(existing||'');
-  }
+  if(imgFile){const r=new FileReader();r.onload=e=>doSave(e.target.result);r.readAsDataURL(imgFile);}
+  else{const existing=editingId?(products.find(x=>x.id===editingId)||{}).img||'':'';doSave(existing||'');}
 }
 
 // close overlay on outside click
