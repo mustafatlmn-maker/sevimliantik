@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antika Koleksiyon</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --gold:#b8966e;
+    --gold-light:#d4b483;
+    --cream:#faf8f4;
+    --dark:#2c2820;
+    --muted:#7a6f62;
+    --border:#e8e0d4;
+  }
+  body{font-family:'Georgia',serif;background:var(--cream);color:var(--dark);line-height:1.7}
+
+  nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(250,248,244,0.95);
+    border-bottom:1px solid var(--border);
+    padding:1rem 2rem;
+    display:flex;justify-content:space-between;align-items:center;
+    backdrop-filter:blur(8px);
+  }
+  .logo{font-size:1.1rem;letter-spacing:0.15em;color:var(--gold);font-weight:normal;text-transform:uppercase}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{text-decoration:none;color:var(--muted);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+  .nav-links a:hover{color:var(--gold)}
+
+  .hero{
+    text-align:center;
+    padding:6rem 2rem 5rem;
+    background:linear-gradient(to bottom,#f5f0e8,var(--cream));
+    border-bottom:1px solid var(--border);
+  }
+  .hero-ornament{color:var(--gold-light);font-size:1.5rem;letter-spacing:0.5em;margin-bottom:1.5rem;opacity:0.7}
+  .hero h1{font-size:2.8rem;font-weight:normal;letter-spacing:0.08em;margin-bottom:1rem;line-height:1.3}
+  .hero h1 span{color:var(--gold)}
+  .hero p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto 2.5rem;font-style:italic}
+  .btn-gold{
+    display:inline-block;
+    padding:0.8rem 2.5rem;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    text-decoration:none;
+    font-size:0.8rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    transition:all 0.3s;
+    cursor:pointer;
+    background:transparent;
+    font-family:'Georgia',serif;
+  }
+  .btn-gold:hover{background:var(--gold);color:#fff}
+
+  .categories{
+    display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;
+    padding:2.5rem 2rem;
+    border-bottom:1px solid var(--border);
+    background:#fff;
+  }
+  .cat-btn{
+    padding:0.5rem 1.2rem;
+    border:1px solid var(--border);
+    background:transparent;
+    color:var(--muted);
+    font-size:0.78rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:all 0.2s;
+    font-family:'Georgia',serif;
+  }
+  .cat-btn:hover,.cat-btn.active{border-color:var(--gold);color:var(--gold);background:#fdf9f3}
+
+  .collection{padding:4rem 2rem;max-width:1100px;margin:0 auto}
+  .section-title{text-align:center;margin-bottom:3rem}
+  .section-title h2{font-size:1.6rem;font-weight:normal;letter-spacing:0.1em;margin-bottom:0.5rem}
+  .section-title .divider{display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--gold-light)}
+  .section-title .divider::before,.section-title .divider::after{content:'';flex:1;max-width:80px;height:1px;background:var(--border)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem}
+  .card{
+    background:#fff;
+    border:1px solid var(--border);
+    overflow:hidden;
+    transition:box-shadow 0.3s,transform 0.3s;
+    cursor:pointer;
+  }
+  .card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.08);transform:translateY(-3px)}
+  .card-img{
+    width:100%;height:220px;
+    background:var(--cream);
+    display:flex;align-items:center;justify-content:center;
+    flex-direction:column;
+    color:var(--gold-light);
+    font-size:0.75rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    border-bottom:1px solid var(--border);
+    position:relative;
+    overflow:hidden;
+  }
+  .card-img img{width:100%;height:100%;object-fit:cover;display:none}
+  .card-img .upload-hint{text-align:center;padding:1rem}
+  .card-img svg{width:40px;height:40px;margin-bottom:0.75rem;opacity:0.4}
+  .card-body{padding:1.25rem 1.5rem}
+  .card-tag{font-size:0.7rem;color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.4rem}
+  .card-title{font-size:1rem;font-weight:normal;margin-bottom:0.35rem;letter-spacing:0.03em}
+  .card-desc{font-size:0.82rem;color:var(--muted);font-style:italic;margin-bottom:1rem;line-height:1.5}
+  .card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:0.75rem;border-top:1px solid var(--border)}
+  .card-price{font-size:1rem;color:var(--gold)}
+  .card-cta{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+  .card-cta:hover{color:var(--gold)}
+
+  .about{
+    background:#fff;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:5rem 2rem;
+    text-align:center;
+  }
+  .about-inner{max-width:600px;margin:0 auto}
+  .about h2{font-size:1.5rem;font-weight:normal;letter-spacing:0.1em;margin-bottom:1.5rem}
+  .about p{color:var(--muted);font-size:0.95rem;font-style:italic;line-height:1.9;margin-bottom:1rem}
+
+  .contact{
+    padding:5rem 2rem;
+    text-align:center;
+    max-width:600px;margin:0 auto;
+  }
+  .contact h2{font-size:1.5rem;font-weight:normal;letter-spacing:0.1em;margin-bottom:0.75rem}
+  .contact p{color:var(--muted);font-size:0.9rem;font-style:italic;margin-bottom:2.5rem}
+  .contact-card{
+    background:#fff;
+    border:1px solid var(--border);
+    padding:2.5rem;
+    margin-bottom:1.5rem;
+  }
+  .phone-number{
+    font-size:1.8rem;font-weight:normal;letter-spacing:0.1em;
+    color:var(--dark);margin-bottom:0.5rem;
+  }
+  .phone-label{font-size:0.75rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:2rem}
+  .wa-btn{
+    display:inline-flex;align-items:center;gap:0.6rem;
+    padding:0.85rem 2rem;
+    background:#25D366;
+    color:#fff;
+    text-decoration:none;
+    font-size:0.8rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    transition:background 0.2s;
+    font-family:'Georgia',serif;
+  }
+  .wa-btn:hover{background:#1db954}
+
+  footer{
+    text-align:center;
+    padding:2rem;
+    border-top:1px solid var(--border);
+    font-size:0.75rem;
+    color:var(--muted);
+    letter-spacing:0.1em;
+  }
+  .footer-logo{color:var(--gold);font-size:0.9rem;letter-spacing:0.2em;margin-bottom:0.5rem}
+
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Antika Koleksiyon</div>
+  <ul class="nav-links">
+    <li><a href="#koleksiyon">Koleksiyon</a></li>
+    <li><a href="#hakkimda">Hakkımda</a></li>
+    <li><a href="#iletisim">İletişim</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-ornament">— ✦ —</div>
+  <h1>Nadir & Değerli<br><span>Antika Porselenler</span></h1>
+  <p>Bavaria, Limoges, Royal Albert, Vienna, England ve daha fazlası — her parça tarihin bir tanığı.</p>
+  <a href="#koleksiyon" class="btn-gold">Koleksiyonu Keşfet</a>
+</section>
+
+<div class="categories" id="kategoriler">
+  <button class="cat-btn active" onclick="filtrele('tumu',this)">Tümü</button>
+  <button class="cat-btn" onclick="filtrele('fincan',this)">Tek Fincanlar</button>
+  <button class="cat-btn" onclick="filtrele('tabak',this)">Duvar Tabakları</button>
+  <button class="cat-btn" onclick="filtrele('servis',this)">Servis Takımları</button>
+  <button class="cat-btn" onclick="filtrele('vazo',this)">Vazo & Dekorasyon</button>
+  <button class="cat-btn" onclick="filtrele('obje',this)">Küçük Objeler</button>
+  <button class="cat-btn" onclick="filtrele('aksesuar',this)">Aksesuarlar</button>
+</div>
+
+<section class="collection" id="koleksiyon">
+  <div class="section-title">
+    <h2>Koleksiyon</h2>
+    <div class="divider">✦</div>
+  </div>
+  <div class="grid" id="urunGrid">
+
+    <div class="card" data-kat="fincan">
+      <div class="card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1-2 4-2 4 2 4 2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+        <div class="upload-hint">Görsel Ekleyin</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Tek Fincan</div>
+        <div class="card-title">Bavaria Altın Yaldızlı Kahve Fincanı</div>
+        <div class="card-desc">El boyaması çiçek motifleri, altın yaldızlı kulp ve ağız kenarı. Tabağıyla birlikte.</div>
+        <div class="card-footer">
+          <span class="card-price">Fiyat için arayın</span>
+          <a href="#iletisim" class="card-cta">Bilgi Al →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-kat="fincan">
+      <div class="card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1-2 4-2 4 2 4 2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+        <div class="upload-hint">Görsel Ekleyin</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Tek Fincan</div>
+        <div class="card-title">Royal Albert Gül Serisi Çay Fincanı</div>
+        <div class="card-desc">İngiltere yapımı, ikonik kırmızı gül deseni, kemik porseleni. Tabağıyla eksiksiz.</div>
+        <div class="card-footer">
+          <span class="card-price">Fiyat için arayın</span>
+          <a href="#iletisim" class="card-cta">Bilgi Al →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-kat="tabak">
+      <div class="card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1-2 4-2 4 2 4 2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+        <div class="upload-hint">Görsel Ekleyin</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Duvar Tabağı</div>
+        <div class="card-title">Vienna Portre Bezemeli Duvar Tabağı</div>
+        <div class="card-desc">Avusturya imparatorluk dönemi, minyatür portre işlemeli, askı tertibatlı.</div>
+        <div class="card-footer">
+          <span class="card-price">Fiyat için arayın</span>
+          <a href="#iletisim" class="card-cta">Bilgi Al →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-kat="tabak">
+      <div class="card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1-2 4-2 4 2 4 2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+        <div class="upload-hint">Görsel Ekleyin</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Duvar Tabağı</div>
+        <div class="card-title">England Mavi-Beyaz Manzara Tabağı</div>
+        <div class="card-desc">Victoria dönemi İngiliz bone china, el boyaması kır manzarası, altın bordür.</div>
+        <div class="card-footer">
+          <span class="card-price">Fiyat için arayın</span>
+          <a href="#iletisim" class="card-cta">Bilgi Al →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-kat="servis">
+      <div class="card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1-2 4-2 4 2 4 2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+        <div class="upload-hint">Görsel Ekleyin</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Servis Takımı</div>
+        <div class="card-title">Bavaria 12 Kişilik Kahve Servisi</div>
+        <div class="card-desc">El boyaması çiçek deseni, altın yaldızlı. 19. yüzyıl sonu, eksiksiz 36 parça.</div>
+        <div class="card-footer">
+          <span class="card-price">Fiyat için arayın</span>
+          <a href="#iletisim" class="card-cta">Bilgi Al →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-kat="vazo">
+      <div class="card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1-2 4-2 4 2 4 2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+        <div class="upload-hint">Görsel Ekleyin</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Vazo & Dekorasyon</div>
+        <div class="card-title">Limoges İmzalı Vazo Çifti</div>
+        <div class="card-desc">Fransız işi, pembe gül motifleri, altın bordür. İmzalı, orijinal etiketli.</div>
+        <div class="card-footer">
+          <span class="card-price">Fiyat için arayın</span>
+          <a href="#iletisim" class="card-cta">Bilgi Al →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-kat="obje">
+      <div class="card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1-2 4-2 4 2 4 2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+        <div class="upload-hint">Görsel Ekleyin</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Küçük Obje</div>
+        <div class="card-title">Porselen Minyatür Heykelcik</div>
+        <div class="card-desc">El yapımı Avrupa porseleni, pastoral sahne figürü, 20. yüzyıl başı, imzalı.</div>
+        <div class="card-footer">
+          <span class="card-price">Fiyat için arayın</span>
+          <a href="#iletisim" class="card-cta">Bilgi Al →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-kat="aksesuar">
+      <div class="card-img">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1-2 4-2 4 2 4 2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+        <div class="upload-hint">Görsel Ekleyin</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Aksesuar</div>
+        <div class="card-title">Antika Gümüş Çerçeveli Ayna</div>
+        <div class="card-desc">El işi gümüş çerçeve, 20. yüzyıl başı Avrupa yapımı, özgün hali korunmuş.</div>
+        <div class="card-footer">
+          <span class="card-price">Fiyat için arayın</span>
+          <a href="#iletisim" class="card-cta">Bilgi Al →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="about" id="hakkimda">
+  <div class="about-inner">
+    <div class="section-title" style="margin-bottom:2rem">
+      <h2>Hakkımda</h2>
+      <div class="divider">✦</div>
+    </div>
+    <p>Yıllardır antika porselen ve değerli eşya koleksiyonculuğu yapıyorum. Bavaria, Limoges, Royal Albert, Vienna ve England porselenleri başta olmak üzere Avrupa'nın en değerli markalarına ait nadide parçaları bir araya getiriyorum.</p>
+    <p>Her parça, tarihin ve zanaatın izlerini taşır. Koleksiyonumu doğru ellere ulaştırmak, bu geleneği yaşatmak için buradayım.</p>
+  </div>
+</section>
+
+<section class="contact" id="iletisim">
+  <h2>İletişim</h2>
+  <p>Koleksiyonumuz hakkında bilgi almak, fiyat sormak veya buluşma ayarlamak için beni arayabilirsiniz.</p>
+  <div class="contact-card">
+    <div class="phone-number">+90 5XX XXX XX XX</div>
+    <div class="phone-label">Telefon & WhatsApp</div>
+    <a href="https://wa.me/905000000000" class="wa-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp ile Yazın
+    </a>
+  </div>
+  <p style="font-size:0.78rem;color:var(--muted);font-style:italic">Randevu ve yerinde inceleme için lütfen önceden arayınız.</p>
+</section>
+
+<footer>
+  <div class="footer-logo">Antika Koleksiyon</div>
+  <p>Nadir porselenler ve değerli antikalar</p>
+</footer>
+
+<script>
+function filtrele(kat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.card').forEach(c => {
+    if (kat === 'tumu' || c.dataset.kat === kat) {
+      c.classList.remove('hidden');
+    } else {
+      c.classList.add('hidden');
+    }
+  });
+}
+
+document.querySelectorAll('.card-cta').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector('#iletisim').scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
