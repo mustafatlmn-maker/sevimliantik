@@ -230,6 +230,7 @@ footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;
   <div class="filter-bar" id="filter-koleksiyon">
     <button class="f-btn active" onclick="filterPage('koleksiyon','tumu',this)">Tümü</button>
     <button class="f-btn" onclick="filterPage('koleksiyon','fincan',this)">Tek Fincanlar</button>
+    <button class="f-btn" onclick="filterPage('koleksiyon','coklu',this)">Çoklu Fincan Setleri</button>
     <button class="f-btn" onclick="filterPage('koleksiyon','tabak',this)">Duvar Tabakları</button>
     <button class="f-btn" onclick="filterPage('koleksiyon','servis',this)">Servis Takımları</button>
     <button class="f-btn" onclick="filterPage('koleksiyon','vazo',this)">Vazo & Dekorasyon</button>
@@ -245,6 +246,7 @@ footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;
   <div class="filter-bar" id="filter-porselen">
     <button class="f-btn active" onclick="filterPage('porselen','tumu',this)">Tümü</button>
     <button class="f-btn" onclick="filterPage('porselen','fincan',this)">Tek Fincanlar</button>
+    <button class="f-btn" onclick="filterPage('porselen','coklu',this)">Çoklu Fincan Setleri</button>
     <button class="f-btn" onclick="filterPage('porselen','tabak',this)">Duvar Tabakları</button>
     <button class="f-btn" onclick="filterPage('porselen','servis',this)">Servis Takımları</button>
   </div>
@@ -346,6 +348,7 @@ footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;
       <label>Kategori</label>
       <select id="fCat">
         <option value="fincan">Tek Fincan</option>
+        <option value="coklu">Çoklu Fincan Seti</option>
         <option value="tabak">Duvar Tabağı</option>
         <option value="servis">Servis Takımı</option>
         <option value="vazo">Vazo & Dekorasyon</option>
@@ -391,7 +394,7 @@ footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;
 <script>
 const WA = '32471429030';
 const ADMIN_PASS = 'Mustafa2025';
-const catLabels = {fincan:'Tek Fincan',tabak:'Duvar Tabağı',servis:'Servis Takımı',vazo:'Vazo & Dekorasyon',obje:'Küçük Obje',aksesuar:'Aksesuar'};
+const catLabels = {fincan:'Tek Fincan',coklu:'Çoklu Fincan Seti',tabak:'Duvar Tabağı',servis:'Servis Takımı',vazo:'Vazo & Dekorasyon',obje:'Küçük Obje',aksesuar:'Aksesuar'};
 const pageFilters = {porselen:['fincan','tabak','servis'], dekoratif:['vazo','obje','aksesuar']};
 
 let products = [];
