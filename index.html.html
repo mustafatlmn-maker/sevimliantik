@@ -501,8 +501,13 @@ function showDetail(id, fromPage){
   document.getElementById('detailPrice').textContent=p.sold==='yes'?'Satıldı':(p.price||'Fiyat için arayın');
   document.getElementById('detailDesc').textContent=p.desc||'';
   document.getElementById('detailWa').href=`https://wa.me/${WA}?text=${encodeURIComponent('Merhaba, "'+p.name+'" hakkında bilgi almak istiyorum.')}`;
-  document.getElementById('detailAdminBtns').style.display=adminUnlocked?'flex':'none';
+  document.getElementById('detailAdminBtns').style.display = adminUnlocked ? 'flex' : 'none';
   showPage('detail');
+}
+
+function refreshDetailAdminBtns(){
+  const btns = document.getElementById('detailAdminBtns');
+  if(btns) btns.style.display = adminUnlocked ? 'flex' : 'none';
 }
 document.getElementById('detailBack').addEventListener('click',()=>showPage(detailFrom));
 
@@ -549,9 +554,18 @@ function openAdmin(id){
 }
 function closeAdmin(){
   document.getElementById('adminOverlay').classList.remove('open');
-  document.getElementById('logoutBtn').style.display=adminUnlocked?'block':'none';
+  document.getElementById('logoutBtn').style.display = adminUnlocked ? 'block' : 'none';
+  // Detay butonlarını duruma göre güncelle
+  const btns = document.getElementById('detailAdminBtns');
+  if(btns) btns.style.display = adminUnlocked ? 'flex' : 'none';
 }
-function adminLogout(){adminUnlocked=false;document.getElementById('logoutBtn').style.display='none';}
+function adminLogout(){
+  adminUnlocked = false;
+  document.getElementById('logoutBtn').style.display = 'none';
+  // Detay sayfası açıksa butonları gizle
+  const btns = document.getElementById('detailAdminBtns');
+  if(btns) btns.style.display = 'none';
+}
 
 // PHOTO SLOTS
 function renderSlots(){
