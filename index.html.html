@@ -105,7 +105,7 @@ nav{display:flex;align-items:center;justify-content:space-between;height:var(--n
 .back-btn{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:1rem 1.5rem;border-bottom:1px solid var(--border);cursor:pointer;transition:color .2s;background:none;border-left:none;border-right:none;border-top:none;font-family:Georgia,serif;width:100%}
 .back-btn:hover{color:var(--gold)}
 
-.slider-wrap{position:relative;width:100%;aspect-ratio:1;background:#f5f0e8;overflow:hidden;cursor:zoom-in}
+.slider-wrap{position:relative;width:100%;aspect-ratio:1;background:#f5f0e8;overflow:hidden}
 .slider-track{display:flex;width:100%;height:100%;transition:transform .35s ease}
 .slide{min-width:100%;height:100%;object-fit:cover;flex-shrink:0}
 .slide-empty{min-width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;color:var(--gold-l);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0}
@@ -333,15 +333,6 @@ footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;
   <p style="font-size:.75rem;color:var(--muted);letter-spacing:.08em">© 2025 Antika Koleksiyon</p>
 </footer>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-  <button class="lightbox-prev" onclick="lightboxGo(event,-1)">‹</button>
-  <img class="lightbox-img" id="lightboxImg" src="" alt="">
-  <button class="lightbox-next" onclick="lightboxGo(event,1)">›</button>
-  <div class="lightbox-count" id="lightboxCount"></div>
-</div>
-
 <button class="admin-btn" onclick="openAdmin()" style="bottom:1.25rem">+ Ürün Ekle</button>
 <button class="admin-btn" id="logoutBtn" style="display:none;bottom:3.6rem;background:#7a6f62" onclick="adminLogout()">Çıkış Yap</button>
 
@@ -425,38 +416,6 @@ function showPage(id, el){
 }
 function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
 
-// LIGHTBOX
-let lbIdx = 0;
-function openLightbox(idx){
-  if(!sliderImgs.length) return;
-  lbIdx = idx;
-  const lb = document.getElementById('lightbox');
-  document.getElementById('lightboxImg').src = sliderImgs[lbIdx];
-  document.getElementById('lightboxCount').textContent = sliderImgs.length>1 ? `${lbIdx+1} / ${sliderImgs.length}` : '';
-  lb.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeLightbox(e){
-  if(e && (e.target.id==='lightboxImg' || e.target.closest('.lightbox-prev,.lightbox-next,.lightbox-close'))) return;
-  document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow='';
-}
-function lightboxGo(e,dir){
-  e.stopPropagation();
-  lbIdx=((lbIdx+dir)+sliderImgs.length)%sliderImgs.length;
-  const img=document.getElementById('lightboxImg');
-  img.style.animation='none'; img.offsetHeight;
-  img.style.animation='';
-  img.src=sliderImgs[lbIdx];
-  document.getElementById('lightboxCount').textContent=sliderImgs.length>1?`${lbIdx+1} / ${sliderImgs.length}`:'';
-}
-document.addEventListener('keydown',e=>{
-  if(!document.getElementById('lightbox').classList.contains('open')) return;
-  if(e.key==='ArrowRight') lightboxGo({stopPropagation:()=>{}},1);
-  else if(e.key==='ArrowLeft') lightboxGo({stopPropagation:()=>{}}, -1);
-  else if(e.key==='Escape') closeLightbox({});
-});
-
 // FIRESTORE
 async function loadProducts(){
   if(!window._db_ready) return;
@@ -531,10 +490,6 @@ function updateSlider(){
 function goSlide(i){sliderIdx=((i%sliderImgs.length)+sliderImgs.length)%sliderImgs.length;updateSlider();}
 document.getElementById('sliderPrev').onclick=()=>goSlide(sliderIdx-1);
 document.getElementById('sliderNext').onclick=()=>goSlide(sliderIdx+1);
-document.getElementById('detailSlider').addEventListener('click', e=>{
-  if(e.target.classList.contains('slider-btn')||e.target.closest('.slider-btn')||e.target.classList.contains('dot')) return;
-  if(sliderImgs.length) openLightbox(sliderIdx);
-});
 let tsX=0;
 document.getElementById('detailSlider').addEventListener('touchstart',e=>{tsX=e.touches[0].clientX},{passive:true});
 document.getElementById('detailSlider').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tsX;if(Math.abs(dx)>40)goSlide(dx<0?sliderIdx+1:sliderIdx-1);},{passive:true});
